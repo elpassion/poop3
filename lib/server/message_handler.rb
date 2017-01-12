@@ -5,7 +5,7 @@ module Server
     end
 
     def call
-      return Server::MessageHandler.const_get(action).new.call if defined? action
+      return Server::MessageHandler.const_get(action).new.call if Server::MessageHandler.const_defined? action
       'Unknown command'
     end
 

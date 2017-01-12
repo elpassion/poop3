@@ -12,6 +12,8 @@ describe Server::MessageHandler do using RSpec::Parameterized::TableSyntax
     "\r\nuser" | '+OK User accepted, password please'
     ' user' | '+OK User accepted, password please'
     "uSER\r\n\r something" | '+OK User accepted, password please'
+    'Wrong command' | 'Unknown command'
+    'very bad command' | 'Unknown command'
   end
 
   with_them do
