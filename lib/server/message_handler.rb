@@ -5,8 +5,16 @@ module Server
     end
 
     def call
-      return Server::MessageHandler.const_get(action).new.call if Server::MessageHandler.const_defined? action
+      return executive_command if know_command
       'Unknown command'
+    end
+
+    def know_command
+      Server::MessageHandler.const_defined? action
+    end
+
+    def executive_command
+      Server::MessageHandler.const_get(action).new.call
     end
 
     private
