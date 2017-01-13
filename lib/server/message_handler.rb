@@ -120,5 +120,22 @@ module Server
         '+OK dewey POP3 localhost v0.1.0 server signing off'
       end
     end
+
+    class Capa < Command 
+      def call
+        "+OK Capability list follows\r\n" +
+        "CAPA\r\n" + 
+        "DELE\r\n" + 
+        "LIST\r\n" + 
+        "NOOP\r\n" + 
+        "PASS\r\n" + 
+        "QUIT\r\n" + 
+        "RETR\r\n" + 
+        "USER\r\n" + 
+        "STAT\r\n" + 
+        "RSET\r\n" +
+        "."
+        end 
+      end
   end
 end
