@@ -106,5 +106,11 @@ module Server
         '+OK maildrop has 2 messages (320 octets)'
       end
     end
+
+    class Quit < Command
+      def call
+        '+OK dewey POP3 localhost v0.1.0 server signing off'
+      end
+    end
   end
 end
