@@ -1,10 +1,12 @@
 module Server
   class MessageHandler
     def initialize(message = nil)
+      puts message.inspect
       @message = message
     end
 
     def call
+      return if message.nil? || message.empty?
       return call_command if known_command?
       '-ERR Unknown command'
     end

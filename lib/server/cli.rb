@@ -7,15 +7,21 @@ module Server
     def self.run
       server = TCPServer.new 1100
 
+      Thread.abort_on_exception = true
+
       loop do
         Thread.start(server.accept) do |client|
           connection = Server::Connection.new
-
-          client.puts connection.handshake
-
-          client.puts connection.on_message(client.gets)
-
-          client.close
+          begin
+            client.puts connection.handshake
+            loop do
+              client.puts connection.on_message(client.gets)
+            end
+          rescue
+            # do nothing
+          ensure
+            client.close
+          end
         end
       end
     end
