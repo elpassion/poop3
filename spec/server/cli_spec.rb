@@ -12,28 +12,28 @@ describe Server::Cli do
 
   it 'sends handshake' do
     socket = TCPSocket.new 'localhost', 1100
-    expect(socket.gets).to eq "+OK POP3 localhost v0.1.0 server ready\n"
+    expect(socket.gets).to eq "+OK POP3 localhost v0.1.0 server ready\r\n"
 
     socket.puts("USER romek")
-    expect(socket.gets).to eq "+OK User accepted, password please\n"
+    expect(socket.gets).to eq "+OK User accepted, password please\r\n"
 
     socket.puts("PASS romek")
-    expect(socket.gets).to eq "+OK maildrop locked and ready\n"
+    expect(socket.gets).to eq "+OK maildrop locked and ready\r\n"
 
     socket.puts("STAT")
-    expect(socket.gets).to eq "+OK 2 320\n"
+    expect(socket.gets).to eq "+OK 2 320\r\n"
 
     socket.puts("LIST 1")
-    expect(socket.gets).to eq "+OK 1 102\n"
+    expect(socket.gets).to eq "+OK 1 102\r\n"
 
     socket.puts("DELE 1")
-    expect(socket.gets).to eq "+OK Message deleted\n"
+    expect(socket.gets).to eq "+OK Message deleted\r\n"
 
     socket.puts("RSET")
-    expect(socket.gets).to eq "+OK maildrop has 2 messages (320 octets)\n"
+    expect(socket.gets).to eq "+OK maildrop has 2 messages (320 octets)\r\n"
 
     socket.puts("QUIT")
-    expect(socket.gets).to eq "+OK dewey POP3 localhost v0.1.0 server signing off\n"
+    expect(socket.gets).to eq "+OK dewey POP3 localhost v0.1.0 server signing off\r\n"
 
     socket.close
   end

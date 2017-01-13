@@ -13,9 +13,9 @@ module Server
         Thread.start(server.accept) do |client|
           connection = Server::Connection.new
           begin
-            client.puts connection.handshake
+            puts(client, connection.handshake)
             loop do
-              client.puts connection.on_message(client.gets)
+              puts(client, connection.on_message(client.gets))
             end
           rescue
             # do nothing
@@ -24,6 +24,10 @@ module Server
           end
         end
       end
+    end
+
+    def self.puts(client, message)
+      client.print "#{message}\r\n"
     end
   end
 end
