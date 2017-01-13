@@ -17,7 +17,7 @@ describe Server::MessageHandler do using RSpec::Parameterized::TableSyntax
   end
 
   with_them do
-    it 'should works correctly' do
+    it 'should work correctly' do
       expect(described_class.new(input).call).to eq(output), "Fail on input '#{input}'"
     end
   end
