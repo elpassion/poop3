@@ -15,7 +15,6 @@ describe Server::MessageHandler do
       "uSER  Bob\r\n" | '+OK User accepted, password please'
       "\r\nuser Dan" | '+OK User accepted, password please'
       ' user   Ada' | '+OK User accepted, password please'
-      "uSER\r\n\r something" | '+OK User accepted, password please'
     end
 
     with_them do
@@ -46,6 +45,32 @@ describe Server::MessageHandler do
     with_them do
       it 'returns unknown command message' do
         expect(subject).to eq(output), "Fail on input '#{input}'"
+      end
+    end
+  end
+
+  context "given PASS command" do
+    context "with valid parameter" do
+      where(:input, :output) do
+        'PASS 123123' | '+OK maildrop locked and ready'
+      end
+
+      with_them do
+        it 'returns success message' do
+          expect(subject).to eq(output), "Fail on input '#{input}'"
+        end
+      end
+    end
+
+    context "with invalid parameter" do
+      where(:input, :output) do
+        'PASS' | '-ERR invalid password'
+      end
+
+      with_them do
+        it 'returns error message' do
+          expect(subject).to eq(output), "Fail on input '#{input}'"
+        end
       end
     end
   end

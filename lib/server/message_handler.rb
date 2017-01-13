@@ -44,5 +44,13 @@ module Server
         "-ERR No parameter provided"
       end
     end
+
+    class Pass < Command
+      def call
+        return "+OK maildrop locked and ready" if params.any?
+
+        "-ERR invalid password"
+      end
+    end
   end
 end
