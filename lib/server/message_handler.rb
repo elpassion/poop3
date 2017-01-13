@@ -9,17 +9,17 @@ module Server
       'Unknown command'
     end
 
-    def know_command
-      Server::MessageHandler.const_defined? action
-    end
+    private
+
+    attr_reader :message
 
     def executive_command
       Server::MessageHandler.const_get(action).new.call
     end
 
-    private
-
-    attr_reader :message
+    def know_command
+      Server::MessageHandler.const_defined? action
+    end
 
     def action
       message.strip.to_s.split(' ')[0].strip.capitalize
