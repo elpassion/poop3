@@ -87,5 +87,24 @@ module Server
         "-ERR Invalid parameter"
       end
     end
+
+    class Retr < Command
+      def call
+        case params[0]
+          when '1'
+            "+OK 102 octets\n#{Base64.encode64('This is first message')}.\n"
+          when '2'
+            "+OK 218 octets\n#{Base64.encode64('This is second message')}.\n"
+          else
+            '-ERR no such message'
+        end
+      end
+    end
+
+    class Rset < Command
+      def call
+        '+OK maildrop has 2 messages (320 octets)'
+      end
+    end
   end
 end
