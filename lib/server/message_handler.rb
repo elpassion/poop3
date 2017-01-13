@@ -73,5 +73,19 @@ module Server
         end
       end
     end
+
+    class Noop < Command
+      def call
+        '+OK'
+      end
+    end
+
+    class Dele < Command
+      def call
+        return "+OK Message deleted" if params.any?
+
+        "-ERR Invalid parameter"
+      end
+    end
   end
 end
