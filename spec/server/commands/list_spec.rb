@@ -42,7 +42,5 @@ describe Server::MessageHandler do
         end
       end
     end
-
-
   end
 end
