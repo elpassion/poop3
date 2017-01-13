@@ -14,7 +14,7 @@ module Server
     attr_reader :message
 
     def call_command
-      Server::MessageHandler.const_get(action).new.call
+      Server::MessageHandler.const_get(action).new(params).call
     end
 
     def known_command?
@@ -25,9 +25,23 @@ module Server
       message.strip.to_s.split(' ')[0].strip.capitalize
     end
 
-    class User
+    def params
+      message.strip.to_s.split(' ')[1..-1].map(&:strip)
+    end
+
+    class Command
+      attr_reader :params
+
+      def initialize(params = [])
+        @params = params
+      end
+    end
+
+    class User < Command
       def call
-        "+OK User accepted, password please"
+        return "+OK User accepted, password please" if params.any?
+
+        "-ERR No parameter provided"
       end
     end
   end
