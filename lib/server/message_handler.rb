@@ -73,5 +73,11 @@ module Server
         end
       end
     end
+
+    class Rset < Command
+      def call
+        '+OK maildrop has 2 messages (320 octets)'
+      end
+    end
   end
 end
