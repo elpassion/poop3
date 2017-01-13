@@ -94,9 +94,9 @@ module Server
       def call
         case params[0]
           when '1'
-            "+OK 102 octets\n#{Base64.encode64('This is first message')}.\n"
+            "+OK 102 octets\r\n#{Base64.encode64('This is first message')}."
           when '2'
-            "+OK 218 octets\n#{Base64.encode64('This is second message')}.\n"
+            "+OK 218 octets\r\n#{Base64.encode64('This is second message')}."
           else
             '-ERR no such message'
         end
