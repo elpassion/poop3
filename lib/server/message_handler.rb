@@ -52,5 +52,11 @@ module Server
         "-ERR invalid password"
       end
     end
+
+    class Stat < Command
+      def call
+        '+OK 2 320'
+      end
+    end
   end
 end
