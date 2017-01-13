@@ -27,8 +27,8 @@ describe Server::MessageHandler do
 
   context "given invalid command" do
     where(:input, :output) do
-      'Wrong command' | 'Unknown command'
-      'very bad command' | 'Unknown command'
+      'Wrong command' | '-ERR Unknown command'
+      'very bad command' | '-ERR Unknown command'
     end
 
     with_them do

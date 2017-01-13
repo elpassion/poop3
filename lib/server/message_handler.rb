@@ -6,7 +6,7 @@ module Server
 
     def call
       return call_command if known_command?
-      'Unknown command'
+      '-ERR Unknown command'
     end
 
     private
