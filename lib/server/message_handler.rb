@@ -58,5 +58,20 @@ module Server
         '+OK 2 320'
       end
     end
+
+    class List < Command
+      def call
+        case params[0]
+          when '1'
+            '+OK 1 102'
+          when '2'
+            '+OK 2 218'
+          when nil
+            "+OK Mailbox scan listing follows\n1 102\n2 218\n."
+          else
+            '-ERR no such message, only 2 messages in maildrop'
+        end
+      end
+    end
   end
 end
