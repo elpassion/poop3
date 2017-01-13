@@ -5,7 +5,7 @@ module Server
     end
 
     def call
-      return executive_command if know_command
+      return call_command if known_command?
       'Unknown command'
     end
 
@@ -13,11 +13,11 @@ module Server
 
     attr_reader :message
 
-    def executive_command
+    def call_command
       Server::MessageHandler.const_get(action).new.call
     end
 
-    def know_command
+    def known_command?
       Server::MessageHandler.const_defined? action
     end
 
