@@ -5,13 +5,21 @@ module Server
     end
 
     def call
-      return Server::MessageHandler.const_get(action).new.call if defined? action
+      return call_command if known_command?
       'Unknown command'
     end
 
     private
 
     attr_reader :message
+
+    def call_command
+      Server::MessageHandler.const_get(action).new.call
+    end
+
+    def known_command?
+      Server::MessageHandler.const_defined? action
+    end
 
     def action
       message.strip.to_s.split(' ')[0].strip.capitalize
