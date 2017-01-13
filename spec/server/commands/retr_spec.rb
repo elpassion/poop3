@@ -9,8 +9,8 @@ describe Server::MessageHandler do
   context 'given RETR command' do
     context 'with valid parameter' do
       where(:input, :output) do
-        'RETR 1' | "+OK 102 octets\r\n#{Base64.encode64('This is first message')}."
-        'RETR 2' | "+OK 218 octets\r\n#{Base64.encode64('This is second message')}."
+        'RETR 1' | "+OK 84 octets\r\nFrom: sender@poop3.com\r\nTo: You!\r\nSubject: Test message\r\n\r\nThis is a test message.\r\n\r\n."
+        'RETR 2' | "+OK 84 octets\r\nFrom: sender@poop3.com\r\nTo: You!\r\nSubject: Test message\r\n\r\nThis is a test message.\r\n\r\n."
       end
 
       with_them do

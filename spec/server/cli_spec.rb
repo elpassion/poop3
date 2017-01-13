@@ -21,16 +21,16 @@ describe Server::Cli do
     expect(socket.gets).to eq "+OK maildrop locked and ready\r\n"
 
     socket.puts("STAT")
-    expect(socket.gets).to eq "+OK 2 320\r\n"
+    expect(socket.gets).to eq "+OK 2 168\r\n"
 
     socket.puts("LIST 1")
-    expect(socket.gets).to eq "+OK 1 102\r\n"
+    expect(socket.gets).to eq "+OK 1 84\r\n"
 
     socket.puts("DELE 1")
     expect(socket.gets).to eq "+OK Message deleted\r\n"
 
     socket.puts("RSET")
-    expect(socket.gets).to eq "+OK maildrop has 2 messages (320 octets)\r\n"
+    expect(socket.gets).to eq "+OK maildrop has 2 messages (168 octets)\r\n"
 
     socket.puts("QUIT")
     expect(socket.gets).to eq "+OK dewey POP3 localhost v0.1.0 server signing off\r\n"

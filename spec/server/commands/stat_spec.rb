@@ -8,7 +8,7 @@ describe Server::MessageHandler do
   context "given STAT command" do
     context "with valid parameter" do
       where(:input, :output) do
-        'STAT' | '+OK 2 320'
+        'STAT' | '+OK 2 168'
       end
 
       with_them do

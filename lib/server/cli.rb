@@ -11,6 +11,8 @@ module Server
 
       loop do
         Thread.start(server.accept) do |client|
+          STDOUT.puts "Connection established with #{client.addr}"
+
           connection = Server::Connection.new
           begin
             puts(client, connection.handshake)

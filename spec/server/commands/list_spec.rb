@@ -8,7 +8,7 @@ describe Server::MessageHandler do
   context 'given LIST command' do
     context 'without parameter' do
       where(:input, :output) do
-        'LIST' | "+OK Mailbox scan listing follows\n1 102\n2 218\n."
+        'LIST' | "+OK Mailbox scan listing follows\r\n1 84\r\n2 84\r\n."
       end
 
       with_them do
@@ -20,8 +20,8 @@ describe Server::MessageHandler do
 
     context 'with valid parameter' do
       where(:input, :output) do
-        'LIST 1' | '+OK 1 102'
-        'LIST 2' | '+OK 2 218'
+        'LIST 1' | '+OK 1 84'
+        'LIST 2' | '+OK 2 84'
       end
 
       with_them do

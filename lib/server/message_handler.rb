@@ -1,5 +1,13 @@
 module Server
   class MessageHandler
+    MESSAGE = <<~TEXT.gsub("\n", "\r\n")
+        From: sender@poop3.com
+        To: You!
+        Subject: Test message
+
+        This is a test message.
+    TEXT
+
     def initialize(message = nil)
       puts message.inspect
       @message = message
@@ -57,7 +65,7 @@ module Server
 
     class Stat < Command
       def call
-        '+OK 2 320'
+        "+OK 2 #{2 * MESSAGE.size}"
       end
     end
 
@@ -65,11 +73,11 @@ module Server
       def call
         case params[0]
           when '1'
-            '+OK 1 102'
+            "+OK 1 #{MESSAGE.size}"
           when '2'
-            '+OK 2 218'
+            "+OK 2 #{MESSAGE.size}"
           when nil
-            "+OK Mailbox scan listing follows\n1 102\n2 218\n."
+            "+OK Mailbox scan listing follows\r\n1 #{MESSAGE.size}\r\n2 #{MESSAGE.size}\r\n."
           else
             '-ERR no such message, only 2 messages in maildrop'
         end
@@ -93,10 +101,8 @@ module Server
     class Retr < Command
       def call
         case params[0]
-          when '1'
-            "+OK 102 octets\r\n#{Base64.encode64('This is first message')}."
-          when '2'
-            "+OK 218 octets\r\n#{Base64.encode64('This is second message')}."
+          when '1', '2'
+            "+OK #{MESSAGE.size} octets\r\n#{MESSAGE}\r\n."
           else
             '-ERR no such message'
         end
@@ -105,7 +111,7 @@ module Server
 
     class Rset < Command
       def call
-        '+OK maildrop has 2 messages (320 octets)'
+        "+OK maildrop has 2 messages (#{2 * MESSAGE.size} octets)"
       end
     end
 

@@ -7,7 +7,7 @@ describe Server::MessageHandler do
 
   context "given RSET command" do
     where(:input, :output) do
-      'RSET' | '+OK maildrop has 2 messages (320 octets)'
+      'RSET' | '+OK maildrop has 2 messages (168 octets)'
     end
 
     with_them do
